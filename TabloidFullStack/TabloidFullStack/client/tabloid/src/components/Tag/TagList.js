@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { getAllTags } from "../Managers/TagManager";
+import { getAllTags } from "../../Managers/TagManager";
 
 
 
