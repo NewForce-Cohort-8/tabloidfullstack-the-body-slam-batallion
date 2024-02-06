@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { getAllTags } from "../../Managers/TagManager";
+import { Button} from "reactstrap";
+import { Navigate } from "react-router";
 
 
 
@@ -18,6 +20,15 @@ export default function TagList() {
   
   return (
     <div>
+                  <Button
+				color='primary'
+				onClick={(e) => {
+					e.preventDefault();
+					Navigate("/Tag/Create");
+				}}
+			>
+				Create Tag
+			</Button>
     <table>
         <tr>
           <th>ID</th>
@@ -27,7 +38,9 @@ export default function TagList() {
           <tr key={tag.id} >
             <td>{tag.id}</td>
             <td>{tag.name}</td>
+
           </tr>
+          
         ))}
     </table>
     
