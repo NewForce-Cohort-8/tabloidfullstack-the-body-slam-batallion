@@ -50,7 +50,8 @@ namespace TabloidFullStack.Controllers
             return CreatedAtAction(nameof(GetPublishedPostById), new { id = post.Id }, post);
         }
 
-       
+
+        // PUT: api/Post/5
         [HttpPut("{id}")]
         public IActionResult UpdatePost(int id, Post post)
         {
@@ -64,7 +65,7 @@ namespace TabloidFullStack.Controllers
             return NoContent();
         }
 
-       
+        // DELETE: api/Post/5
         [HttpDelete("{id}")]
         public IActionResult DeletePost(int id)
         {
