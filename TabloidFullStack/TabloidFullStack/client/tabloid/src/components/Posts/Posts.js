@@ -7,7 +7,7 @@ export const Post = ({ post }) => {
   return (
     <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.displayName} </p>
-      <p>{post.publishDateTime}</p>
+      <p>{post.publishDateTime} {post.category.name}</p>
       <CardImg top src={post.imageLocation} alt={post.title} />
       <CardBody>
         <p>
