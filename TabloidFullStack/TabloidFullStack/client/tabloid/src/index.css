@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*basic CSS for table readability in CategoryList but will apply to all td and th elements. If your spacing is getting messed up, this might be why*/
+td, th{
+  padding-left: 3rem;
+}
