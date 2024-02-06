@@ -24,7 +24,7 @@ export default function TagList() {
 				color='primary'
 				onClick={(e) => {
 					e.preventDefault();
-					Navigate("/Tag/Create");
+					Navigate("/Tag/TagCreate");
 				}}
 			>
 				Create Tag
