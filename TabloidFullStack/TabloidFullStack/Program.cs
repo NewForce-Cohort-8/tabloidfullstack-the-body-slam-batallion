@@ -15,6 +15,7 @@ namespace TabloidFullStack
             builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             builder.Services.AddTransient<IPostRepository, PostRepository>();
+            builder.Services.AddTransient<ITagRepository, TagRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 
 
