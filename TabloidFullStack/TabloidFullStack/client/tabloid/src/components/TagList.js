@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { getAllTags } from "../Managers/TagManager";
-import { Tag } from "reactstrap";
+
 
 
 
 export default function TagList() {
     const [tags, setTags] = useState([]);
-    const getTags = () => getAllTags()
+
+    const getTags = () => {
+      getAllTags().then(allTags => setTags(allTags));
+    };
+  
+    useEffect(() => {
+      getTags();
+    }, []);
+  
   return (
-    <div className="container">
-    <div className="row justify-content-center">
-      <div className="cards-column">
-
+    <div>
+    <table>
+        <tr>
+          <th>ID</th>
+          <th>Tag Name</th>
+        </tr>
         {tags.map((tag) => (
-          <Tag key={tag.id} tag={tag}/>
+          <tr key={tag.id} >
+            <td>{tag.id}</td>
+            <td>{tag.name}</td>
+          </tr>
         ))}
-      </div>
-    </div>
+    </table>
+    
   </div>
-
   );
 }
