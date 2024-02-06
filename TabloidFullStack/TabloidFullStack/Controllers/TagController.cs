@@ -21,7 +21,7 @@ namespace TabloidFullStack.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_tagRepository.GetAll());
+            return Ok(_tagRepository.GetAllTags());
         }
 
         //[HttpGet("{id}")]

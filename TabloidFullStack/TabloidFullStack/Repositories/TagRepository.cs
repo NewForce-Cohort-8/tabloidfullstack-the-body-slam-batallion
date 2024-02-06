@@ -8,7 +8,7 @@ namespace TabloidFullStack.Repositories
         public TagRepository(IConfiguration config) : base(config) { }
 
         //GetAll() Lists all tags
-        public List<Tag> GetAll()
+        public List<Tag> GetAllTags()
         {
             using (var conn = Connection)
             {

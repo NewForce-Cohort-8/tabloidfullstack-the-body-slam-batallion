@@ -6,7 +6,7 @@ namespace TabloidFullStack.Repositories
     {
         //void AddTag(Tag tag);
         //void DeleteTag(int tagId);
-        List<Tag> GetAll();
+        List<Tag> GetAllTags();
         //Tag GetTagById(int id);
         //void UpdateTag(Tag tag);
     }
