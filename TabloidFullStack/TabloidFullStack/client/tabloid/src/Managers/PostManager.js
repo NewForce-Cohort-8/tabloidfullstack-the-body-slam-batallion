@@ -6,7 +6,10 @@ export const getAllPosts = () => {
   return fetch(baseUrl) 
     .then((res) => res.json())
 };
-
+export const getAllPostsByUserProfile = (id) => {
+  return fetch(`https://localhost:5001/api/Post/${id}`)
+    .then((res) => res.json())
+};
 export const addPost = (singlePost) => { 
   return fetch(baseUrl, {
     method: "POST",

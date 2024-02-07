@@ -4,6 +4,7 @@ namespace TabloidFullStack.Repositories
 {
     public interface IPostRepository
     {
+        List<Post> GetAllPublishedPostsByUserProfile(int id);
         void Add(Post post);
         void DeletePost(int postId);
         List<Post> GetAllPublishedPosts();

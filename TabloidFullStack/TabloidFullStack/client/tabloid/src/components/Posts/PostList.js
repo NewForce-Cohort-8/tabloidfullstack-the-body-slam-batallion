@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllPosts } from "../../Managers/PostManager";
 import { Post } from "../Posts/Posts.js";
-
+import { CreatePostButton } from "../Posts/PostButton.js"
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
@@ -12,7 +12,10 @@ const PostList = () => {
   useEffect(() => {
     getPosts();
   }, []); 
-  return (
+  return (<>
+  
+          <CreatePostButton />
+        
     <div className="container">
       <div className="row justify-content-center">
         <div className="cards-column">
@@ -22,7 +25,7 @@ const PostList = () => {
         </div>
       </div>
     </div>
-  );
+  </>);
 };
 
 export default PostList;
