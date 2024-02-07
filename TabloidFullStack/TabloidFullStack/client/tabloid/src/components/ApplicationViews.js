@@ -4,6 +4,8 @@ import Hello from "./Hello";
 import TagList from "./Tag/TagList";
 import PostList from "../components/Posts/PostList";
 import { CategoryList } from "./CategoryList";
+import { AddTag } from "./Tag/AddTag";
+
 
 
 export default function ApplicationViews() {
@@ -12,7 +14,7 @@ export default function ApplicationViews() {
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/tag" element={<TagList/>}/>
-        <Route path="tag/TagCreate" element={<TagCreate/>}/>
+        <Route path="tag/add" element={<AddTag/>}/>
         
         <Route path="/posts" element= {<PostList />} />
         

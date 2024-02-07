@@ -3,13 +3,14 @@ import { Container, Input, InputGroup, Button } from "reactstrap";
 import { addTag } from "../../Managers/TagManager";
 import { useNavigate } from "react-router-dom";
 
-export const addTag = () => {
+export const AddTag = () => {
 	const [tag, setTag] = useState({
-		name: "",
+		name: ""
+        
 	});
 	const navigate = useNavigate();
 	const handleSubmit = (e) => {
-		e.preventDefault();
+		
 		return addTag(tag).then(() => navigate("/tag"));
 	};
 	return (

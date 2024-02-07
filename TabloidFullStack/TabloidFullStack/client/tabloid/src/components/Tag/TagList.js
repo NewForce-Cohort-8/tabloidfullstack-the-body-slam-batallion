@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { getAllTags } from "../../Managers/TagManager";
 import { Button} from "reactstrap";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 
 
 
 
 export default function TagList() {
     const [tags, setTags] = useState([]);
-
+    const navigate = useNavigate();
     const getTags = () => {
       getAllTags().then(allTags => setTags(allTags));
     };
@@ -20,15 +20,7 @@ export default function TagList() {
   
   return (
     <div>
-                  <Button
-				color='primary'
-				onClick={(e) => {
-					e.preventDefault();
-					Navigate("/Tag/TagCreate");
-				}}
-			>
-				Create Tag
-			</Button>
+
     <table>
         <tr>
           <th>ID</th>
@@ -43,6 +35,16 @@ export default function TagList() {
           
         ))}
     </table>
+
+    <Button
+				color='primary'
+				onClick={(e) => {
+					e.preventDefault();
+					navigate("/tag/add");
+				}}
+			>
+				Create Tag
+			</Button>
     
   </div>
   );

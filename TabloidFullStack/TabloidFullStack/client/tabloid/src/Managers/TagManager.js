@@ -14,5 +14,5 @@ export const addTag = (tag) => {
         },
         body: JSON.stringify(tag),
     }) 
-      .then((res) => res.json())
+      
   };
