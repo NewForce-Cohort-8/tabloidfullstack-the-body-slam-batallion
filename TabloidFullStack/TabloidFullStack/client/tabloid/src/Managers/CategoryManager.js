@@ -11,14 +11,13 @@ export const getAllCategories = () => {
 };
 
 
-//saving this add function for later
-//nothing to see here
-/*export const addPost = (singlePost) => { 
+
+export const addCategory = (singleCategory) => { 
   return fetch(baseUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(singlePost),
+    body: JSON.stringify(singleCategory),
   });
-}; */
+}; 

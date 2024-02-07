@@ -5,10 +5,15 @@ import TagList from "./Tag/TagList";
 import PostList from "../components/Posts/PostList";
 import { CategoryList } from "./CategoryList";
 import { AddTag } from "./Tag/AddTag";
-
-
+import TagList from "./TagList";
+import  CategoryList  from "./Categories/CategoryList";
+import CategoryForm from "./Categories/CategoryForm";
 
 export default function ApplicationViews() {
+  return (
+    <Routes>
+      <Route path="/" element={<Hello />} />
+      <Route path="/tag" element={<TagList />} />
 
  return(
       <Routes>
@@ -22,4 +27,11 @@ export default function ApplicationViews() {
       </Routes>
    );
  
+
+      <Route path="/posts" element={<PostList />} />
+
+      <Route path="/categories" element={<CategoryList />} />
+      <Route path="/categories/form" element={<CategoryForm />} />
+    </Routes>
+  );
 }
