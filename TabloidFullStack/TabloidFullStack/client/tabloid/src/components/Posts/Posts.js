@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 
 
@@ -16,6 +17,9 @@ export const Post = ({ post }) => {
          
         </p>
         <strong>{post.content}</strong>
+        <Link to={`/posts/${post.id}`}>
+    <strong>details</strong>
+</Link>
       </CardBody>
     </Card>
   );

@@ -22,7 +22,7 @@ namespace TabloidFullStack.Controllers
         }
 
 
-        [HttpGet("{userId:int}")]
+        [HttpGet("userProfile/{userId}")]
         public IActionResult GetPostsByUser(int userId)
         {
 
@@ -37,7 +37,7 @@ namespace TabloidFullStack.Controllers
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetPublishedPostById(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
