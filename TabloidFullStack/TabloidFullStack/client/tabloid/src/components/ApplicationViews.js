@@ -4,6 +4,7 @@ import Hello from "./Hello";
 import PostList from "../components/Posts/PostList";
 import TagList from "./TagList";
 import  CategoryList  from "./Categories/CategoryList";
+import CategoryForm from "./Categories/CategoryForm";
 
 export default function ApplicationViews() {
   return (
@@ -14,6 +15,7 @@ export default function ApplicationViews() {
       <Route path="/posts" element={<PostList />} />
 
       <Route path="/categories" element={<CategoryList />} />
+      <Route path="/categories/form" element={<CategoryForm />} />
     </Routes>
   );
 }
