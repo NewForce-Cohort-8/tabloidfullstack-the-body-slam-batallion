@@ -16,6 +16,6 @@ export default function ApplicationViews() {
         <Route path="/posts" element= {<PostList />} />
         <Route path="/categories" element={<CategoryList />} />
         <Route path="/categories/form" element={<CategoryForm />} />
-      </Routes>
+    </Routes>
   );
 }
