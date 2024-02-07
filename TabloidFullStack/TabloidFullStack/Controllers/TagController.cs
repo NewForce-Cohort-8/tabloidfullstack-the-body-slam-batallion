@@ -24,6 +24,13 @@ namespace TabloidFullStack.Controllers
             return Ok(_tagRepository.GetAllTags());
         }
 
+        [HttpPost]
+        public IActionResult Post(Tag tag)
+        {
+            _tagRepository.AddTag(tag);
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
+        }
+
         //[HttpGet("{id}")]
         //public IActionResult Get(int id)
         //{
@@ -53,12 +60,7 @@ namespace TabloidFullStack.Controllers
         //    var posts = _tagRepository.SearchHottest(since);
         //    return Ok(posts);
         //}
-        //[HttpPost]
-        //public IActionResult Post(Tag tag)
-        //{
-        //    _tagRepository.Add(tag);
-        //    return CreatedAtAction("Get", new { id = tag.Id }, tag);
-        //}
+
 
         //[HttpPut("{id}")]
         //public IActionResult Put(int id, Tag tag)
