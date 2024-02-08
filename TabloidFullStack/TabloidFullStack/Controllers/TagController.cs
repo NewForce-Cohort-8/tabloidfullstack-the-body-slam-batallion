@@ -31,54 +31,39 @@ namespace TabloidFullStack.Controllers
             return CreatedAtAction("Get", new { id = tag.Id }, tag);
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var tag = _tagRepository.GetById(id);
-        //    if (tag == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(tag);
-        //}
-
-        //[HttpGet("GetWithComments")]
-        //public IActionResult GetWithComments()
-        //{
-        //    var posts = _tagRepository.GetAllWithComments();
-        //    return Ok(posts);
-        //}
-        //for later
-        //[HttpGet("search")]
-        //public IActionResult Search(string q, bool sortDesc)
-        //{
-        //    return Ok(_tagRepository.Search(q, sortDesc));
-        //}
-        //[HttpGet("Hottest")]
-        //public IActionResult SearchHottest(DateTime since)
-        //{
-        //    var posts = _tagRepository.SearchHottest(since);
-        //    return Ok(posts);
-        //}
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var tag = _tagRepository.GetTagById(id);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            return Ok(tag);
+        }
 
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Tag tag)
-        //{
-        //    if (id != tag.Id)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    _tagRepository.Update(tag);
-        //    return NoContent();
-        //}
+        // PUT: api/Tag/5
+        [HttpPut("{id}")]
+        public IActionResult UpdatePost(int id, Tag tag)
+        {
+            if (id != tag.Id)
+            {
+                return BadRequest();
+            }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _tagRepository.Delete(id);
-        //    return NoContent();
-        //}
+            _tagRepository.UpdateTag(tag);
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _tagRepository.DeleteTag(id);
+            return NoContent();
+        }
     }
 }

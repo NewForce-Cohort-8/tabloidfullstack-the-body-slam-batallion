@@ -10,13 +10,16 @@ import { PostDetails } from "./Posts/PostDetails";
 import { AddTag } from "./Tag/AddTag";
 import  CategoryList  from "./Categories/CategoryList";
 import CategoryForm from "./Categories/CategoryForm";
+import { EditTag } from "./Tag/EditTag";
+
 
 export default function ApplicationViews() {
   return (
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/tag" element={<TagList/>}/>
-        <Route path="tag/add" element={<AddTag/>}/>        
+        <Route path="tag/add" element={<AddTag/>}/>   
+        <Route path="tag/edit/:id" element={<EditTag/>}/>       
         <Route path="/posts" element= {<PostList />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/myposts" element= {<UserPostList />} />
