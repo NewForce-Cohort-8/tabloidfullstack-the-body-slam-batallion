@@ -30,7 +30,16 @@ export default function TagList() {
           <tr key={tag.id} >
             <td>{tag.id}</td>
             <td>{tag.name}</td>
-
+            
+            <Button
+				color='primary'
+				onClick={(e) => {
+					e.preventDefault();
+					navigate(`/tag/edit/${tag.id}`);
+				}}
+			>
+				Edit Tag
+			</Button>
           </tr>
           
         ))}
