@@ -21,7 +21,14 @@ namespace TabloidFullStack.Controllers
             _postRepository = postRepository;
         }
 
-        
+
+        [HttpGet("userProfile/{userId}")]
+        public IActionResult GetPostsByUser(int userId)
+        {
+
+            return Ok(_postRepository.GetAllPublishedPostsByUserProfile(userId));
+        }
+
         [HttpGet]
         public IActionResult GetPublishedPosts()
         {
@@ -30,7 +37,7 @@ namespace TabloidFullStack.Controllers
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetPublishedPostById(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
@@ -44,11 +51,25 @@ namespace TabloidFullStack.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPost(Post post)
-        {
-            _postRepository.Add(post);
-            return CreatedAtAction(nameof(GetPublishedPostById), new { id = post.Id }, post);
-        }
+public IActionResult AddPost(Post post)
+{
+    try
+    {
+      
+
+        // Set CreateDateTime to current date and time
+        post.CreateDateTime = DateTime.Now;
+
+        _postRepository.Add(post);
+        return CreatedAtAction(nameof(GetPublishedPostById), new { id = post.Id }, post);
+    }
+    catch (Exception ex)
+    {
+        // Handle the exception as per your application's requirements
+        return StatusCode(500, "An error occurred while adding the post.");
+    }
+}
+
 
 
         // PUT: api/Post/5
