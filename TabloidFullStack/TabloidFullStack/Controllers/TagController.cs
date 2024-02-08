@@ -59,11 +59,11 @@ namespace TabloidFullStack.Controllers
         }
 
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //    _tagRepository.Delete(id);
-        //    return NoContent();
-        //}
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _tagRepository.DeleteTag(id);
+            return NoContent();
+        }
     }
 }
