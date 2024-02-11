@@ -8,8 +8,8 @@ export const Post = ({ post }) => {
   return (
     <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.displayName} </p>
-      <p>{post.publishDateTime} {post.category.name}</p>
-      <CardImg top src={post.imageLocation} alt={post.title} />
+      <p>{post.publishDateTime} </p>
+      {post.category.name}
       <CardBody>
         <p>
       
@@ -17,6 +17,7 @@ export const Post = ({ post }) => {
          
         </p>
         <strong>{post.content}</strong>
+        <br></br>
         <Link to={`/posts/${post.id}`}>
     <strong>details</strong>
 </Link>

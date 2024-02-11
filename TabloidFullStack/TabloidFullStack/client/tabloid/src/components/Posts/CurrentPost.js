@@ -8,7 +8,8 @@ export const CurrentPost = ({ post }) => {
   return (
     <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.displayName} </p>
-      <p>{post.publishDateTime} {post.category.name}</p>
+      <p>{post.publishDateTime} </p>
+      {post.category.name}
       <CardImg top src={post.imageLocation} alt={post.title} />
       <CardBody>
         <p>
