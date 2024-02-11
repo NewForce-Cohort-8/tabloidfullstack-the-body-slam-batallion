@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
 import { getPost } from "../../Managers/PostManager";
 import { useParams } from "react-router-dom";
 import { CurrentPost } from "./CurrentPost";
