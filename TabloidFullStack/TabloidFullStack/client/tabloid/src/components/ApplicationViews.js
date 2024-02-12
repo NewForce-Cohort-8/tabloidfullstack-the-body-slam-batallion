@@ -12,6 +12,7 @@ import  CategoryList  from "./Categories/CategoryList";
 import CategoryForm from "./Categories/CategoryForm";
 import { EditTag } from "./Tag/EditTag";
 import UserProfileList from "./UserProfiles/UserProfileList";
+import { EditCategory } from "./Categories/CategoryEdit";
 
 
 export default function ApplicationViews() {
@@ -28,6 +29,7 @@ export default function ApplicationViews() {
         <Route path="/categories" element={<CategoryList/>} />
         <Route path="/categories/form" element={<CategoryForm />} />
         <Route path="/users" element={<UserProfileList />} />
+        <Route path="categories/edit/:id" element={<EditCategory/>}/>       
     </Routes>
   );
 }
