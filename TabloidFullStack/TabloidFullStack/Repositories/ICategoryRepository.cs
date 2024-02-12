@@ -7,5 +7,7 @@ namespace TabloidFullStack.Repositories
         List<Category> GetAll();
         void Add(Category category);
         void Delete(int id);
+        void UpdateCategory(Category category);
+        Category GetCategoryById(int id);
     }
 }
