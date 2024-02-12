@@ -14,7 +14,7 @@ code {
 
 /*basic CSS for table readability in CategoryList but will apply to all td and th elements. If your spacing is getting messed up, this might be why*/
 thead, tbody{
-table-layout: fixed;
+margin-left: 3rem;
 }
 
 .category-form{
