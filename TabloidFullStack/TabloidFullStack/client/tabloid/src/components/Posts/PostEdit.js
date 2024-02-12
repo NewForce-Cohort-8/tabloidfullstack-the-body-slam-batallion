@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { addPost } from "../../Managers/PostManager";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { deletePost, editPost } from "../../Managers/PostManager";
 import { getAllCategories } from "../../Managers/CategoryManager";
+import { getPostById } from "../../Managers/PostManager";
+import { Button } from "reactstrap";
 
 
-export const PostForm = () => {
+export const PostEdit = () => 
+{
     const localTabloidUser = localStorage.getItem("userProfile");
     const tabloidUserObject = JSON.parse(localTabloidUser)
     const [categories, setCategories] = useState([])
     const navigate = useNavigate()
+    const { postId } = useParams()
 
     const getCategories = () => {
         getAllCategories().then(allCategories => setCategories(allCategories));
@@ -33,12 +37,19 @@ export const PostForm = () => {
 
     })
     
+    useEffect(() => {
+        getPostById(postId)
+        .then((postArray) => {
+            update(postArray)
+        })
+    }, [postId]);
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
         console.log("You clicked the  button.")
 
-        const postToSendToAPI = {
+        const postToEdit = {
+            Id: parseInt(postId),
             Title: post.title,
             Content: post.content,
             ImageLocation: post.imageLocation,
@@ -47,14 +58,18 @@ export const PostForm = () => {
             IsApproved: true,
             CategoryId: post.categoryId,
             UserProfileId: tabloidUserObject.id
-        };
+        }
 
-        return addPost(postToSendToAPI)
+       return editPost(postToEdit)
         .then(() => {
-        navigate("/my-posts")
+            navigate("/my-posts")
         })
-
 };
+
+
+    
+        
+
 
 const selectList = (event) => {
     const copy = {
@@ -113,7 +128,7 @@ return (
                     type="text"
                     id="content"
                     
-                    value={post.caption}
+                    value={post.content}
                     onChange={
                         (evt) => {
                             const copy = {...post}
@@ -155,8 +170,4 @@ return (
         </button>
     </form>
 </div>)
-                
-
-
-
 }
