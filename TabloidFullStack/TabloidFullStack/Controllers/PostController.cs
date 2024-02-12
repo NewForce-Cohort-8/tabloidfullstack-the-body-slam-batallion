@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
 using TabloidFullStack.Models;
 using TabloidFullStack.Repositories;
 
@@ -15,84 +10,68 @@ namespace TabloidFullStack.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
-
         public PostController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
         }
 
-
-        [HttpGet("userProfile/{userId}")]
-        public IActionResult GetPostsByUser(int userId)
-        {
-
-            return Ok(_postRepository.GetAllPublishedPostsByUserProfile(userId));
-        }
-
         [HttpGet]
-        public IActionResult GetPublishedPosts()
+        public IActionResult Get()
         {
-            var posts = _postRepository.GetAllPublishedPosts();
-            return Ok(posts);
+            return Ok(_postRepository.GetAll());
         }
 
-        
-        [HttpGet("{id:int}")]
-        public IActionResult GetPublishedPostById(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetPostById(int id)
         {
-            var post = _postRepository.GetPublishedPostById(id);
-
+            Post post = _postRepository.GetPostById(id);
             if (post == null)
             {
                 return NotFound();
             }
-
             return Ok(post);
         }
 
         [HttpPost]
-public IActionResult AddPost(Post post)
-{
-    try
-    {
-      
+        public IActionResult Post(Post post)
+        {
+            post.CreateDateTime = DateTime.Now;
+            post.PublishDateTime = DateTime.Now;
+            _postRepository.Add(post);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
 
-        // Set CreateDateTime to current date and time
-        post.CreateDateTime = DateTime.Now;
+        [HttpGet("GetUserPosts/{id}")]
+        public IActionResult Get(int id)
+        {
+            List<Post> posts = _postRepository.GetPostByUserId(id);
+            if (posts == null)
 
-        _postRepository.Add(post);
-        return CreatedAtAction(nameof(GetPublishedPostById), new { id = post.Id }, post);
-    }
-    catch (Exception ex)
-    {
-        // Handle the exception as per your application's requirements
-        return StatusCode(500, "An error occurred while adding the post.");
-    }
-}
+            {
+                return NotFound();
+            }
 
+            return Ok(posts);
+        }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postRepository.Delete(id);
+            return NoContent();
+        }
 
-        // PUT: api/Post/5
         [HttpPut("{id}")]
-        public IActionResult UpdatePost(int id, Post post)
+        public IActionResult Put(int id, Post post)
         {
             if (id != post.Id)
             {
                 return BadRequest();
             }
-
-            _postRepository.UpdatePost(post);
-
-            return NoContent();
-        }
-
-        // DELETE: api/Post/5
-        [HttpDelete("{id}")]
-        public IActionResult DeletePost(int id)
-        {
-            _postRepository.DeletePost(id);
+            post.CreateDateTime = DateTime.Now;
+            post.PublishDateTime = DateTime.Now;
+            _postRepository.Update(post);
             return NoContent();
         }
     }
 }
-

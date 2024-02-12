@@ -1,17 +1,18 @@
 ﻿using TabloidFullStack.Models;
-
 namespace TabloidFullStack.Repositories
 {
     public interface IPostRepository
     {
-        List<Post> GetAllPublishedPostsByUserProfile(int id);
-        void Add(Post post);
-        void DeletePost(int postId);
-        List<Post> GetAllPublishedPosts();
+        List<Post> GetAll();
+
+        List<Post> GetPostByUserId(int userProfileId);
         Post GetPostById(int id);
-        Post GetPublishedPostById(int id);
-        Post GetUserPostById(int id, int userProfileId);
-        List<Post> GetUserPosts(int userProfileId);
-        void UpdatePost(Post post);
+
+        void Add(Post post);
+        void Update(Post post);
+        void Delete(int id);
+
+
+
     }
 }

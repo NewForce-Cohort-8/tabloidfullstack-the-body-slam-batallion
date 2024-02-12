@@ -1,66 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardImg, CardBody, Button } from "reactstrap";
-import { getAllPostsByUserProfile, deletePost} from "../../Managers/PostManager";
-import { Post } from "../Posts/Posts";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Card, CardBody, CardImg, CardText, CardTitle, Col, Container, Row, Table } from "reactstrap";
+import { getUserPosts } from "../../Managers/PostManager";
+import { Post } from "./Posts";
 
 
 
-const UserPostList = () => {
-  const [userPosts, setUserPosts] = useState([]);
-  const navigate = useNavigate();
+export const UserPosts = () => {
+    const [userPosts, setUserPosts] = useState([]);
+
+    // This gets the current user
+    const localTabloidUser = localStorage.getItem("userProfile")
+    const tabloidUserObject = JSON.parse(localTabloidUser)
 
 
-  const getPosts = () => {
-    const localTabloidUser = localStorage.getItem("userProfile");
-    const tabloidUserObject = JSON.parse(localTabloidUser);
-
-    getAllPostsByUserProfile(tabloidUserObject.id)
-      .then(allPosts => {
-        // Check if allPosts is an array, if not convert it to an array
-        const postsArray = Array.isArray(allPosts) ? allPosts : [allPosts];
-        setUserPosts(postsArray);
-      })
-      .catch(error => {
-        console.error("Error fetching user posts:", error);
-      });
-  };
-  const deletePostById = (postId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
-    if (confirmDelete) {
-      deletePost(postId)
-        .then(() => {
-          // After successful deletion, filter out the deleted post from the userPosts array
-          setUserPosts(userPosts.filter(post => post.id !== postId));
-          navigate('/posts');
+    useEffect(() => {
+        getUserPosts(tabloidUserObject.id)
+        .then((data) => {
+            setUserPosts(data)
         })
-        .catch(error => {
-          console.error("Error deleting post:", error);
+        .catch((error) => {
+            console.log("Can't fetch user posts:" , error)
         });
-    }
-  };
-  useEffect(() => {
-    getPosts();
-  }, []);
+    }, [tabloidUserObject.id] );
 
-  return (
-    <div className="container">
-    <div className=" justify-content-center">
-      {userPosts.map((post) => (
-        <div key={post.id} className="col-md-10 mb-4">
-          <Card>
-            <div className="card-body">
-              <Post post={post} />
+    return (<>
+        <div className="post-list">
+          <div className="row justify-content-center">
+            <div className="cards-column">
+              
+              {userPosts.map((post) => {
+                return  <Post key={post.id} post={post} />
+              })}
+              
             </div>
-            <div className="card-footer d-flex justify-content-between">
-              <Button color="danger" onClick={() => deletePostById(post.id)}>Delete</Button>
-            </div>
-          </Card>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-);
-};
-
-export default UserPostList;
+  
+      </>)
+}
