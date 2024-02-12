@@ -29,6 +29,7 @@ const CategoryList = () => {
             <th>ID</th>
             <th>Category Name</th>
             <th>Delete Category</th>
+            <th>Edit Category</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@ const CategoryList = () => {
               <td>{category.id}</td>
               <td>{category.name}</td>
               <button className="table-button" onClick={() => deleteCategoryById(category.id)}>Delete</button>
+              <button className="table-button">Edit Category</button>
             </tr>
           ))}
         </tbody>
