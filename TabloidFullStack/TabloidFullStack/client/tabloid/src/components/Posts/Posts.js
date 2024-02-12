@@ -1,12 +1,12 @@
 import React from "react";
-import { Card, CardImg, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Card, CardBody, ListGroup, ListGroupItem} from "reactstrap";
 
 
 export const Post = ({ post }) => {
-  return (
-    <Card className="m-4">
+
+    return (
+      <Card className="m-4">
       <p className="text-left px-2">Posted by: {post.userProfile.displayName} </p>
       <p>{post.publishDateTime} </p>
       {post.category.name}
@@ -23,5 +23,6 @@ export const Post = ({ post }) => {
 </Link>
       </CardBody>
     </Card>
-  );
+        
+      );
 };
