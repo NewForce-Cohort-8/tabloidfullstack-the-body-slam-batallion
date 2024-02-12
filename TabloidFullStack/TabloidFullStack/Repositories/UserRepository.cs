@@ -31,10 +31,10 @@ namespace TabloidFullStack.Repositories
                         UserProfile user = new UserProfile()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            FirstName = reader.GetString(reader.GetOrdinal("up.FirstName")),
-                            LastName = reader.GetString(reader.GetOrdinal("up.LastName")),
-                            //FullName = reader.GetString(reader.GetOrdinal("up.FullName")),
-                            DisplayName = reader.GetString(reader.GetOrdinal("up.DisplayName")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                      
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                         };
                         users.Add(user);
                     }

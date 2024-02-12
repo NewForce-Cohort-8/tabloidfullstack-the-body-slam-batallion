@@ -5,6 +5,12 @@
 
 const apiUrl = "https://localhost:5001";
 
+export const getAllUsers = () => {
+  return fetch(apiUrl) 
+    .then((res) => res.json())
+};
+////////////////////////////////////////////
+
 export const login = (userObject) => {
   return fetch(`${apiUrl}/api/userprofile/getbyemail?email=${userObject.email}`)
   .then((r) => r.json())

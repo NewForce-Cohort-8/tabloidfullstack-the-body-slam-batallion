@@ -11,6 +11,7 @@ import { AddTag } from "./Tag/AddTag";
 import  CategoryList  from "./Categories/CategoryList";
 import CategoryForm from "./Categories/CategoryForm";
 import { EditTag } from "./Tag/EditTag";
+import UserProfileList from "./UserProfiles/UserProfileList";
 
 
 export default function ApplicationViews() {
@@ -26,6 +27,7 @@ export default function ApplicationViews() {
         <Route path="/post/createpost" element= {<PostForm />} />
         <Route path="/categories" element={<CategoryList/>} />
         <Route path="/categories/form" element={<CategoryForm />} />
+        <Route path="/users" element={<UserProfileList />} />
     </Routes>
   );
 }
