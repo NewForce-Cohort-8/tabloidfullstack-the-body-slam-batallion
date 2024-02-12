@@ -37,3 +37,9 @@ export const addPost = (singlePost) => {
     body: JSON.stringify(singlePost),
   });
 };
+
+export const deletePost = (postId) => {
+  return fetch(`${baseUrl}/${postId}`, {
+    method: "DELETE",
+  });
+};

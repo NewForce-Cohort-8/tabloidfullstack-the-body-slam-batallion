@@ -13,7 +13,7 @@ export const CreatePostButton = () => {
             style={{ width: '135px', height: '35px' }}
             required
             autoFocus
-          >Create</button>
+          >New Post</button>
           
         </form>
       </>
