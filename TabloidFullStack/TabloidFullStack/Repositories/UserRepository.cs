@@ -7,6 +7,44 @@ namespace TabloidFullStack.Repositories
     {
         public UserRepository(IConfiguration configuration) : base(configuration) { }
 
+
+        //GetAll() Lists all Users
+        public List<UserProfile> GetAllUsers()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
+                                up.UserTypeId,
+                               ut.Name AS UserTypeName
+                          FROM UserProfile up
+                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
+                        ORDER BY LastName ASC;";
+                    List<UserProfile> users = new List<UserProfile>();
+
+                    var reader = cmd.ExecuteReader();
+                    
+                    while (reader.Read())
+                    {
+                        UserProfile user = new UserProfile()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            FirstName = reader.GetString(reader.GetOrdinal("up.FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("up.LastName")),
+                            //FullName = reader.GetString(reader.GetOrdinal("up.FullName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("up.DisplayName")),
+                        };
+                        users.Add(user);
+                    }
+
+                    reader.Close();
+
+                    return users;
+                }
+            }
+        }
         public UserProfile GetByEmail(string email)
         {
             using (var conn = Connection)
