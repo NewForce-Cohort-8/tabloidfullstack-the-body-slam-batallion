@@ -1,102 +1,159 @@
-import React, { useState, useEffect } from "react";
-import { Form, FormGroup, Card, CardBody, Label, Input, Button } from "reactstrap";
-import { addPost } from "../../Managers/PostManager";
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { addPost } from '../../Managers/PostManager';
 import { useNavigate } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 export const PostForm = () => {
-  const [imageLocation, setImageLocation] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [publishDateTime, setPublishDateTime] = useState("");
-  const [userProfileId, setUserProfileId] = useState("");
-  const [categoryId, setCategoryId] = useState("");
 
-  // Use this hook to allow us to programmatically redirect users
-  const navigate = useNavigate();
 
-  const submit = (e) => {
-    const post = {
-      imageLocation,
-      title,
-      content,
-      categoryId: +categoryId,
-      publishDateTime,
-      userProfileId: +userProfileId,
+    const localTabloidUser = localStorage.getItem("userProfile");
+    const tabloidUserObject = JSON.parse(localTabloidUser);
+
+    const [postEntry, setPostEntry] = useState({
+        Title: "",
+        ImageLocation: "",
+        Content: "",
+        UserProfileId: tabloidUserObject.id,
+        CategoryId: "",
+        IsApproved: true,
+        CreateDateTime: new Date(),
+        PublishDateTime: "",
+    })
+
+    const handleControlledInputChange = (e) => {
+
+        const newPostEntry = { ...postEntry }
+
+        newPostEntry[`${e.target.name}`] = e.target.value
+
+        setPostEntry(newPostEntry)
+    }
+
+    const handleCheckboxChange = (e) => {
+        const newPostEntry = { ...postEntry };
+        newPostEntry.IsApproved = e.target.checked;
+        setPostEntry(newPostEntry);
     };
 
-    addPost(post).then(() => {
-      // Navigate the user back to the home route
-      navigate("/");
-    });
-  };
 
-  return (
-    <div className="container pt-4">
-      <div className="row justify-content-center">
-        <Card className="col-sm-12 col-lg-6">
-          <CardBody>
-            <Form>
-              <FormGroup>
-                <Label for="userId">User Id (For Now...)</Label>
-                <Input
-                  type="number"
-                  id="userId"
-                  value={userProfileId}
-                  onChange={(e) => setUserProfileId(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="categoryId">Category Id (For Now...)</Label>
-                <Input
-                  type="number"
-                  id="categoryId"
-                  value={categoryId}
-                  onChange={(e) => setCategoryId(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="imageUrl">Gif URL</Label>
-                <Input
-                  id="imageUrl"
-                  value={imageLocation}
-                  onChange={(e) => setImageLocation(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="title">Title</Label>
-                <Input
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <Label for="content">Content</Label>
-                <Input
-                  id="content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="publishDateTime">Publish Date Time</Label>
-                <Input
-                  type="datetime-local"
-                  id="publishDateTime"
-                  value={publishDateTime}
-                  onChange={(e) => setPublishDateTime(e.target.value)}
-                />
-              </FormGroup>
-            </Form>
-            <Button color="info" onClick={submit}>
-              SUBMIT
-            </Button>
-          </CardBody>
-        </Card>
-      </div>
-    </div>
-  );
-};
+    const updatePostState = () => {
+        // Fetch the updated list of posts from the backend or update the existing state
+        // Example: You can fetch the updated list of posts from the backend and set it as the new state
+        fetch('/api/posts') // Assuming this endpoint retrieves all posts
+            .then(response => response.json())
+            .then(postsData => {
+                // Update the component state with the new list of posts
+                setPostEntry(postsData); // Assuming setPosts is your state update function
+            })
+            .catch(error => {
+                console.error('Error fetching posts:', error);
+            });
+    };
+
+    const navigate = useNavigate();
+
+    const saveEntry = (e) => {
+        e.preventDefault()
+
+        const entryToSend = {
+            ...postEntry,
+            UserProfileId: tabloidUserObject.id,
+            CreateDateTime: new Date(),
+        }
+
+        addPost(entryToSend)
+            .then((p) => {
+                p.json()
+                    .then(post => {
+                        navigate(`/posts/${post.id}`)
+                    })
+            }
+            )
+
+            .then(setPostEntry({
+                Title: "",
+                ImageLocation: "",
+                Content: "",
+                UserProfileId: tabloidUserObject.id,
+                CategoryId: "",
+                IsApproved: true,
+                CreateDateTime: new Date(),
+                PublishDateTime: "",
+            }))
+
+            .catch(error => {
+                console.error('Error adding post:', error);
+                // Handle errors here, such as displaying an error message to the user
+            });
+    }
+
+    return (
+        <Form onSubmit={saveEntry}>
+            <fieldset>
+                <FormGroup>
+                    <Label htmlFor="Title">Title</Label>
+                    <Input id="Title" name="Title" type="text" value={postEntry.Title} onChange={handleControlledInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label htmlFor="Content">Content</Label>
+                    <Input id="Content" name="Content" type="text" value={postEntry.Content} onChange={handleControlledInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label htmlFor="ImageLocation">Image URL</Label>
+                    <Input id="ImageLocation" name="ImageLocation" type="text" value={postEntry.ImageLocation} onChange={handleControlledInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="PublishDateTime">Publish Date:</Label>
+                    <Input id="PublishDateTime" type="date" name="PublishDateTime" value={postEntry.PublishDateTime} onChange={handleControlledInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Category">Category</Label>
+                    <Input type="select" name="CategoryId" id="Category" value={postEntry.CategoryId} onChange={handleControlledInputChange} >
+                        <option value="1">
+                            Technology
+                        </option>
+                        <option value="2">
+                            Politics
+                        </option>
+                        <option value="3">
+                            Science
+                        </option>
+                        <option value="4">
+                            Cooking
+                        </option>
+                        <option value="5">
+                            Music
+                        </option>
+                        <option value="6">
+                            Cthulhu Sightings
+                        </option>
+                        <option value="7">
+                            History
+                        </option>
+                        <option value="8">
+                            Home and Garden
+                        </option>
+                        <option value="9">
+                            Entertainment
+                        </option>
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Input id="IsApproved" type="checkbox" defaultChecked={postEntry.IsApproved} onChange={handleCheckboxChange} />
+                    <Label htmlFor="IsApproved">Approve Post </Label>
+                </FormGroup>
+                <FormGroup>
+                    <Button>Save Post</Button>
+                </FormGroup>
+            </fieldset>
+        </Form>
 
 
+    )
+}
+
+export default PostForm;
