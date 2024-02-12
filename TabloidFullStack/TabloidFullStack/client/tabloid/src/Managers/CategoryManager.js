@@ -10,8 +10,6 @@ export const getAllCategories = () => {
   })
 };
 
-
-
 export const addCategory = (singleCategory) => { 
   return fetch(baseUrl, {
     method: "POST",
@@ -27,3 +25,17 @@ export const deleteCategory = (id) => {
     method: "DELETE"
   })
 }
+
+export const editCategory = (category) => {
+  return fetch(`${baseUrl}/${category.id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(category)
+  })
+};
+
+export const getCategoryById = (id) => {
+	return fetch(`${baseUrl}/${id}`).then((res) => res.json());
+};
