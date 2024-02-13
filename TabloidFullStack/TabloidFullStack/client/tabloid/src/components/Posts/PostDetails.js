@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
+import { Button, Card, CardBody, CardImg, CardFooter } from "reactstrap";
 import { Link } from "react-router-dom";
 import { deletePost, getPostById } from "../../Managers/PostManager";
 // import CommentList from "../Comment/CommentList";
@@ -85,15 +85,29 @@ return (
          
         </p>
         <strong>{post.content}</strong>
-       
+       <CardFooter>
+       {deleteButton()}
+       {editButton()}
+       </CardFooter>
       </CardBody>
-      {editButton()}
+      
       {/* <Button><Link to={`/posts/${post.id}/comments`}>Add Comment</Link></Button>
       {showComments && <CommentList />}
       <Button onClick={toggleComments}>
         {showComments ? "Hide Comments" : "View Comments"}
       </Button> */}
-      {deleteButton()} 
+       
+      <Button
+					
+					color='dark'
+					className='me-2'
+					onClick={(e) => {
+						e.preventDefault();
+						navigate(`/Post/${post.id}/Comments`);
+					}}
+				>
+					Show Comments
+				</Button>
     </Card>  
 );
 };
