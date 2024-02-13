@@ -29,9 +29,9 @@ export default function UserProfileList() {
             {users.map((user) => (
               <tr key={user.id} >
                 <td>{user.id}</td>
-                <td>{user.fullname}</td>
-                <td>{user.displayname}</td>
-                <td>{user.type}</td>
+                <td>{user.fullName}</td>
+                <td>{user.displayName}</td>
+                <td>{user.userType.name}</td>
                
                 
                 <Button

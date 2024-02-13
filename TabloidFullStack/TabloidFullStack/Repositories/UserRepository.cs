@@ -34,12 +34,12 @@ namespace TabloidFullStack.Repositories
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                       
-                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName"))
-                        };
-                        UserType UserType = new UserType()
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                        UserType = new UserType()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                        },
                         };
                         users.Add(user);
                     }
