@@ -6,6 +6,7 @@ import { AddTag } from "./Tag/AddTag";
 import  CategoryList  from "./Categories/CategoryList";
 import CategoryForm from "./Categories/CategoryForm";
 import { EditTag } from "./Tag/EditTag";
+import UserProfileList from "./UserProfiles/UserProfileList";
 import { PostList } from "./Posts/PostList";
 import { PostDetails } from "./Posts/PostDetails";
 import { UserPosts } from "./Posts/UserPostList";
@@ -30,6 +31,7 @@ export default function ApplicationViews() {
         <Route path="tag/edit/:id" element={<EditTag/>}/>       
         <Route path="/categories" element={<CategoryList/>} />
         <Route path="/categories/form" element={<CategoryForm />} />
+        <Route path="/users" element={<UserProfileList />} />
         <Route path="categories/edit/:id" element={<EditCategory/>}/>       
     </Routes>
   );
