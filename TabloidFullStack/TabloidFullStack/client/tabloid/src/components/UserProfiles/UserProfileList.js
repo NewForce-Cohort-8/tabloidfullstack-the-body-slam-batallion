@@ -19,20 +19,20 @@ export default function UserProfileList() {
         <table>
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Display Name</th>
               <th>Full Name</th>
+              <th>Display Name</th>
+              <th>User Type</th>
+
 
 
             </tr>
             {users.map((user) => (
               <tr key={user.id} >
                 <td>{user.id}</td>
-                <td>{user.FirstName}</td>
-                <td>{user.LastName}</td>
-                <td>{user.DisplayName}</td>
-                <td>{user.FullName}</td>
+                <td>{user.fullname}</td>
+                <td>{user.displayname}</td>
+                <td>{user.type}</td>
+               
                 
                 <Button
                     onClick={(e) => {
@@ -40,7 +40,7 @@ export default function UserProfileList() {
                         navigate(`/user/edit/${user.id}`);
                     }}
                 >
-                    Edit Tag
+                    Edit User
                 </Button>
          
               </tr>

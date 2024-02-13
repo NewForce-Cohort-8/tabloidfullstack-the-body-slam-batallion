@@ -17,8 +17,8 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                                up.UserTypeId,
-                               ut.Name AS UserTypeName
+                                up.UserTypeId, 
+                               ut.Name AS UserTypeName, ut.Id
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
                         ORDER BY LastName ASC;";
@@ -34,7 +34,12 @@ namespace TabloidFullStack.Repositories
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                       
-                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName"))
+                        };
+                        UserType UserType = new UserType()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
                         };
                         users.Add(user);
                     }
