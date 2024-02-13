@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using TabloidFullStack.Models;
 using TabloidFullStack.Repositories;
 
@@ -57,8 +58,17 @@ namespace TabloidFullStack.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _postRepository.Delete(id);
-            return NoContent();
+            try
+            {
+                _postRepository.Delete(id);
+                return NoContent();
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it appropriately
+                Console.WriteLine("SQL Exception occurred: " + ex.Message);
+                return StatusCode(500, "An error occurred while deleting the post.");
+            }
         }
 
         [HttpPut("{id}")]

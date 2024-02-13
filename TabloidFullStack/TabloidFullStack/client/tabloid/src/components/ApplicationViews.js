@@ -13,11 +13,13 @@ import { UserPosts } from "./Posts/UserPostList";
 import { PostForm } from "./Posts/PostForm";
 import { PostEdit } from "./Posts/PostEdit";
 import { EditCategory } from "./Categories/CategoryEdit";
+import { CommentList } from "./Comment/CommentList";
 
 
 export default function ApplicationViews() {
   return (
       <Routes>
+        <Route path='/Post/:postId/Comments' element={<CommentList />} />
              <Route path="/posts/edit/:postId" element={<PostEdit />} />
           <Route path="/posts/add" element={<PostForm />} />
          <Route path="/my-posts" element={<UserPosts/>} />
