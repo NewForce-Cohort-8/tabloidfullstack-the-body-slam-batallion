@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+
 import { getPostComments } from "../../Managers/CommentManager";
 import {  Container, Card, CardBody, CardImg, CardFooter } from "reactstrap";  
 import { Comment } from "./Comment";
 import { getPostById } from "../../Managers/PostManager";
+import { Button } from "reactstrap";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 export const CommentList = () => {
+    const navigate = useNavigate();
 	const { postId } = useParams();
 	const [comments, setComments] = useState([]);
 	const [post, setPost] = useState([]);
@@ -37,7 +40,17 @@ export const CommentList = () => {
         </p>
         <strong>{post.content}</strong>
         <hr></hr>
-        <h1>COMMENTS</h1>
+        <h1>COMMENTS <Button
+        color ='dark'
+					
+					className='add-comment'
+					onClick={(e) => {
+						e.preventDefault();
+						navigate(`/Post/${post.id}/Comments/Add`);
+					}}
+				>
+					Add Comment
+				</Button></h1>
        <CardFooter>
 
        {comments.map((comment) => (

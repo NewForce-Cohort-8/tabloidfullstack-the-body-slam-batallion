@@ -41,7 +41,7 @@ export const Comment = ({ comment, postId }) => {
 				<CardTitle tag='h5'>{comment.subject}</CardTitle>
 				<CardText>{comment.content}</CardText>
 			</CardBody>
-			{user.id == comment.userProfileId ? (
+			{/* {user.id == comment.userProfileId ? (
 				<CardFooter className='d-flex justify-content-end'>
 					<Button
 						id={`edit-comment--${comment.id}`}
@@ -60,7 +60,7 @@ export const Comment = ({ comment, postId }) => {
 				</CardFooter>
 			) : (
 				""
-			)}
+			)} */}
 		</Card>
 	);
 };
