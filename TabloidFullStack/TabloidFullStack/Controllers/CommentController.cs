@@ -23,7 +23,20 @@ namespace TabloidFullStack.Controllers
         {
             return Ok(_commentRepository.GetCommentsByPostId(postId));
         }
+        [HttpPost]
+        public IActionResult Post(Comment comment)
+        {
+            _commentRepository.Add(comment);
+            return CreatedAtAction("Get", new { id = comment.Id }, comment);
+        }
 
-   
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _commentRepository.Delete(id);
+            return NoContent();
+        }
+
+
     }
 }

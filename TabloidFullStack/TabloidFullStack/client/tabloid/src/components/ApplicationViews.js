@@ -14,12 +14,15 @@ import { PostForm } from "./Posts/PostForm";
 import { PostEdit } from "./Posts/PostEdit";
 import { EditCategory } from "./Categories/CategoryEdit";
 import { CommentList } from "./Comment/CommentList";
+import { AddComment } from "./Comment/CommentForm";
 import { UserDetails } from "./UserProfiles/UserDetails";
 
 
 export default function ApplicationViews() {
   return (
       <Routes>
+        
+        <Route path='/Post/:postId/Comments/Add' element={<AddComment />} />
         <Route path='/Post/:postId/Comments' element={<CommentList />} />
              <Route path="/posts/edit/:postId" element={<PostEdit />} />
           <Route path="/posts/add" element={<PostForm />} />
