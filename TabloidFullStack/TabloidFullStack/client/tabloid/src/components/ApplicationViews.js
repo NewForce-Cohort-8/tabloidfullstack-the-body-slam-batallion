@@ -15,6 +15,7 @@ import { PostEdit } from "./Posts/PostEdit";
 import { EditCategory } from "./Categories/CategoryEdit";
 import { CommentList } from "./Comment/CommentList";
 import { AddComment } from "./Comment/CommentForm";
+import { UserDetails } from "./UserProfiles/UserDetails";
 
 
 export default function ApplicationViews() {
@@ -35,6 +36,7 @@ export default function ApplicationViews() {
         <Route path="/categories" element={<CategoryList/>} />
         <Route path="/categories/form" element={<CategoryForm />} />
         <Route path="/users" element={<UserProfileList />} />
+        <Route path="/users/:id" element= {<UserDetails/>} />
         <Route path="categories/edit/:id" element={<EditCategory/>}/>       
     </Routes>
   );

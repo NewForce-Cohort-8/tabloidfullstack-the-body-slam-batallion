@@ -9,6 +9,11 @@ export const getAllUsers = () => {
   return fetch(`${apiUrl}/api/userprofile`) 
     .then((res) => res.json())
 };
+
+export const getUserById = (id) => {
+	return fetch(`${apiUrl}/api/userprofile/${id}`).then((res) => res.json());
+};
+
 ////////////////////////////////////////////
 
 export const login = (userObject, password) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../Managers/UserProfileManager";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button} from "reactstrap";
 
 export default function UserProfileList() {
@@ -19,9 +19,10 @@ export default function UserProfileList() {
         <table>
             <tr>
               <th>ID</th>
-              <th>Full Name</th>
               <th>Display Name</th>
+              <th></th>
               <th>User Type</th>
+              <th>Full Name</th>
 
 
 
@@ -29,15 +30,19 @@ export default function UserProfileList() {
             {users.map((user) => (
               <tr key={user.id} >
                 <td>{user.id}</td>
-                <td>{user.fullName}</td>
                 <td>{user.displayName}</td>
+                <Link to={`/users/${user.id}`}>
+                <strong>Details</strong>
+                </Link>
                 <td>{user.userType.name}</td>
+                <td>{user.fullName}</td>
+
                
                 
                 <Button
                     onClick={(e) => {
                         e.preventDefault();
-                        navigate(`/user/edit/${user.id}`);
+                        navigate(`/users/edit/${user.id}`);
                     }}
                 >
                     Edit User
