@@ -20,6 +20,7 @@ import { AddComment } from "./Comment/CommentForm";
 export default function ApplicationViews() {
   return (
       <Routes>
+        
         <Route path='/Post/:postId/Comments/Add' element={<AddComment />} />
         <Route path='/Post/:postId/Comments' element={<CommentList />} />
              <Route path="/posts/edit/:postId" element={<PostEdit />} />

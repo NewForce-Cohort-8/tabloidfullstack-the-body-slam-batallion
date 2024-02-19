@@ -1,34 +1,54 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-	Button,
 	Card,
 	CardBody,
-	CardFooter,
 	CardHeader,
 	CardText,
 	CardTitle,
 	Col,
 	Row,
 } from "reactstrap";
+import { DeleteCommentsById } from "../../Managers/CommentManager";
 
 export const Comment = ({ comment, postId }) => {
 	const [date] = comment.createDateTime.split("T");
 	const [year, month, day] = date.split("-");
 	const formattedDate = `${month}/${day}/${year}`;
-	const user = JSON.parse(localStorage.getItem("userProfile"));
+	const localTabloidUser = localStorage.getItem("userProfile");
+    const tabloidUserObject = JSON.parse(localTabloidUser);
 	const navigate = useNavigate();
 
-	const handleNavigate = (e) => {
-		e.preventDefault();
-		const [, commentId] = e.target.id.split("--");
-		if (e.target.id.startsWith("delete-comment")) {
-			navigate(`/post/${postId}/Comments/Delete/${commentId}`);
+	const alertClick = () => {
+		const confirmBox = window.confirm("Do you really want to delete this comment?")
+		if (confirmBox === true){
+		  handleCommentDelete()
 		}
-		if (e.target.id.startsWith("edit-comment")) {
-			navigate(`/post/${postId}/Comments/Edit/${commentId}`);
+		  // else (window.confirm("Post not deleted!"))
 		}
-	};
+
+	const handleCommentDelete = () => {
+		DeleteCommentsById(comment.id).then(() => {
+		  navigate(`/Posts`)
+		});
+	  };
+	  const deleteButton = () => {
+		if (comment.userProfileId === tabloidUserObject.id) {
+			return <button color="danger" onClick={ alertClick } className="comment-finish">Delete</button>}
+  
+			else {
+			  return ""
+			}}
+	// const handleNavigate = (e) => {
+	// 	e.preventDefault();
+	// 	const [, commentId] = e.target.id.split("--");
+	// 	if (e.target.id.startsWith("delete-Comment")) {
+	// 		navigate(`/post/${postId}/Comments/Delete/${commentId}`);
+	// 	}
+	// 	if (e.target.id.startsWith("edit-comment")) {
+	// 		navigate(`/post/${postId}/Comments/Edit/${commentId}`);
+	// 	}
+	// };
 	return (
 		<Card className='mb-4'>
 			<CardHeader>
@@ -41,6 +61,7 @@ export const Comment = ({ comment, postId }) => {
 				<CardTitle tag='h5'>{comment.subject}</CardTitle>
 				<CardText>{comment.content}</CardText>
 			</CardBody>
+			{deleteButton()}
 			{/* {user.id == comment.userProfileId ? (
 				<CardFooter className='d-flex justify-content-end'>
 					<Button

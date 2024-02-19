@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { getPostComments } from "../../Managers/CommentManager";
-import {  Container, Card, CardBody, CardImg, CardFooter } from "reactstrap";  
+import { Card, CardBody, CardImg, CardFooter } from "reactstrap";  
 import { Comment } from "./Comment";
 import { getPostById } from "../../Managers/PostManager";
 import { Button } from "reactstrap";
 import { useNavigate, useParams, Link } from "react-router-dom";
+
 
 export const CommentList = () => {
     const navigate = useNavigate();
@@ -22,6 +23,8 @@ export const CommentList = () => {
 		getComments();
 		getThisPost();
 	}, [postId]);
+
+
 
 	return (
         <>

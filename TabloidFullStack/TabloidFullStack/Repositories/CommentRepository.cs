@@ -6,6 +6,19 @@ namespace TabloidFullStack.Repositories
     public class CommentRepository : BaseRepository, ICommentRepository
     {
         public CommentRepository(IConfiguration configuration) : base(configuration) { }
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Comment WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         public void Add(Comment comment)
         {
