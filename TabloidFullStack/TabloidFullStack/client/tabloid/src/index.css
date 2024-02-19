@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*basic CSS for table readability in CategoryList but will apply to all td and th elements. If your spacing is getting messed up, this might be why*/
+thead, tbody{
+margin-left: 3rem;
+}
+
+.category-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.category-form-input{
+  margin: 1rem;
+}

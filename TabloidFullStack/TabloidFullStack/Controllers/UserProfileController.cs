@@ -29,6 +29,18 @@ namespace TabloidFullStack.Controllers
             return Ok(user);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var user = _userRepository.GetById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
@@ -39,6 +51,12 @@ namespace TabloidFullStack.Controllers
                 "GetByEmail",
                 new { email = userProfile.Email },
                 userProfile);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_userRepository.GetAllUsers());
         }
     }
 }
